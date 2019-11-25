@@ -90,10 +90,10 @@ AFIST = _A Friendly Introduction to Software Testing_ by Bill Laboon
 
 ## WEEK 13 (Week of 18 NOV)
 
-* (Class 1) Security Testing
-  * READING: AFIST, Chapter 20
+* (Class 1) Static Analysis, Part 3
 
-* (Class 2) EX6: Penetration Testing
+* (Class 2) Security Testing
+  * READING: AFIST, Chapter 20
 
 ## WEEK 14 (Week of 25 NOV)
 
