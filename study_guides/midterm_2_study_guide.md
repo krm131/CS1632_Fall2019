@@ -18,7 +18,7 @@ Here are the key topics to study in preparation for the test.
 
 _Note: the items in italic are learning goals that require application of your
 knowledge.  Either you have to apply your knowledge to a piece of code, or you
-need to apply an algorithm to a specific problem.
+need to apply an algorithm to a specific problem._
 
 ## AUTOMATED (WEB) SYSTEMS TESTING
 * Be able to explain why testing a GUI web application involves a lot of text
@@ -60,7 +60,7 @@ important when measuring certain performance indicators.
 * Be able to explain why property-based testing is necessary for stochastic
   testing.
 * Be able to define what an invariant is.
-_* Be able to come up with invariants of your own given a piece of (pseudo)
+* _Be able to come up with invariants of your own given a piece of (pseudo)
   code._
 * Be able to discuss the advantages / disadvantages of property-based testing.
 * Be able to explain why "shrinking" in quickcheck is useful for debugging.
@@ -73,7 +73,7 @@ _* Be able to come up with invariants of your own given a piece of (pseudo)
   defects for various numbers of variable interactions.
 * Be able to define what pairwise testing is and what combinatorial testing is.
 * Be able to define what a covering array is.
-_* Be able to create a covering array for the given list of parameters and the
+* _Be able to create a covering array for the given list of parameters and the
   given number of interactions (t)._
 
 ## STATIC TESTING PART 1
@@ -110,7 +110,7 @@ model complex programs with pointers, dynamic object creation, etc.)
 * Be able to explain how symbolic execution can drastically reduce the size of
   the state space.
 * Be able to explain what role a constraint solver plays in symbolic execution.
-  _* Given code, be able to trace through the code, creating a symbolic
+* _Given code, be able to trace through the code, creating a symbolic
 execution tree in the process.  Each statement in the tree should have an
 associated path condition.  Also, if the statement is an assignment, a symbolic
 expression should be assigned to the variable instread of a concrete value._
