@@ -362,7 +362,22 @@ Also note there are NO LATE SUBMISSIONS due to the grading deadline.  Any submis
 
 ## Submission
 
-Each pairwise group will submit the deliverable once to courseweb, by one member of the group. Under the "Course Documents" menu on the lefthand side, you will see an assignment named "Deliverable 5". Please upload a PDF format of your report.  Don't forget your github url.  Also don't forget to commit and push your final code to your github.  Both the document and your code have to be submitted on time to get credit.
+Each pairwise group will submit the deliverable once to courseweb, by one
+member of the group. Under the "Course Documents" menu on the lefthand side,
+you will see an assignment named "Deliverable 5". Please upload a PDF format of
+your report.  Don't forget your github url.  Also don't forget to commit and
+push your final code to your github.  Both the document and your code have to
+be submitted on time to get credit.
+
+Each pairwise group will also submit their github to
+[GradeScope](https://www.gradescope.com/).  All of you should have gotten
+invitation emails.  Please choose the GitHub option when you submit.  Also,
+please make use of the GradeScope facility to add group members at the
+top-right of your submission page.  GradeScope automatically grades the source
+code part of your submission and provides feedback for defects.  You can submit
+as many as you want, so feel free to submit frequently to get frequent
+feedback.  Eventually, it will also be able to grade your JUnit and JPF tests
+(work in progress).  I will announce when that part is complete on courseweb.
 
 IMPORTANT: Please keep the github private and add the following users as collaborators: nikunjgoel95, wonsunahn.
 
