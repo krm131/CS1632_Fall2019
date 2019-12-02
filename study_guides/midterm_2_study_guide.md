@@ -60,13 +60,13 @@ important when measuring certain performance indicators.
 * Be able to explain why property-based testing is necessary for stochastic
   testing.
 * Be able to define what an invariant is.
-* _Be able to come up with invariants of your own given a piece of (pseudo)
-  code._
 * Be able to discuss the advantages / disadvantages of property-based testing.
 * Be able to explain why "shrinking" in quickcheck is useful for debugging.
 * Be able to define what fuzz testing is.
 * Be able to explain why complete random input generation when fuzz testing is
   ineffective, using an example.
+* _Be able to come up with invariants of your own given a piece of (pseudo)
+  code._
 
 ## PAIRWISE / COMBINATORIAL TESTING
 * Be able to interpret the results of the NIST study on the frequency of
@@ -105,17 +105,20 @@ model complex programs with pointers, dynamic object creation, etc.)
 * Be able to explain each state space reduction technique: state collapsing,
   state approximation, hash compaction, heap canonicalization.
 * Be able to tell which of the above techniques are unsound and why.
+* _Given code, be able identify parts of it that leads to state space explosion._
+* _Given a state transition diagram, be able to draw backtracking arrows._
 
 ## STATIC TESTING PART 3
 * Be able to explain how symbolic execution can drastically reduce the size of
   the state space.
 * Be able to explain what role a constraint solver plays in symbolic execution.
+* Be able to explain how concolic testing, or directed automated random
+  testing, helps overcome the deficiencies of symbolic execution.
 * _Given code, be able to trace through the code, creating a symbolic
 execution tree in the process.  Each statement in the tree should have an
 associated path condition.  Also, if the statement is an assignment, a symbolic
 expression should be assigned to the variable instread of a concrete value._
-* Be able to explain how concolic testing, or directed automated random
-  testing, helps overcome the deficiencies of symbolic execution.
+
 
 ## SECURITY TESTING
 * Be able to list the Infosec (CIA) triad
