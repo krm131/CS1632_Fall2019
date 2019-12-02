@@ -105,8 +105,8 @@ model complex programs with pointers, dynamic object creation, etc.)
 * Be able to explain each state space reduction technique: state collapsing,
   state approximation, hash compaction, heap canonicalization.
 * Be able to tell which of the above techniques are unsound and why.
-* _Given code, be able identify parts of it that leads to state space explosion.
-* _Given a state transition diagram, be able to draw backtracking arrows.
+* _Given code, be able identify parts of it that leads to state space explosion._
+* _Given a state transition diagram, be able to draw backtracking arrows._
 
 ## STATIC TESTING PART 3
 * Be able to explain how symbolic execution can drastically reduce the size of
