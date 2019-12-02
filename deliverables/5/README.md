@@ -291,7 +291,7 @@ distribution is synonymous with Gaussian distribution, hence the name.  Here is
 the formula you should use:
 
 ```
-skill = nextGaussian() * SKILL_STDEV + SKILL_AVERAGE
+skill = Math.round(random.nextGaussian() * SKILL_STDEV + SKILL_AVERAGE)
 ```
 
 SKILL\_AVERAGE and SKILL\_DEV are the average and standard deviation of the
