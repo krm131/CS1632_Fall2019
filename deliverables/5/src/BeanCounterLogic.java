@@ -21,9 +21,10 @@ import java.util.Random;
  * 
  * <p>Note that BeanCounterLogic uses a logical coordinate system to store the
  * positions of in-flight beans.For example, for a 4-slot machine: (0, 0) (1, 0)
- *                      (0, 0)
- *               (1, 0)        (1, 1)
- *        (2, 0)        (2, 1)        (2, 2)
+*                      (0, 0)
+ *               (0, 1)        (1, 1)
+ *        (0, 2)        (1, 2)        (2, 2)
+ *  (0, 3)       (1, 3)        (2, 3)       (3, 3)
  * [Slot0]       [Slot1]       [Slot2]      [Slot3]
  */
 
