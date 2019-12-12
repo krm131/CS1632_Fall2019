@@ -1,7 +1,8 @@
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Random;
+import gov.nasa.jpf.vm.Verify;
 
 /**
  * Code by @author Wonsun Ahn
@@ -20,17 +21,29 @@ import java.util.Random;
  * state inside BeanCounterLogic to display on the screen.
  * 
  * <p>Note that BeanCounterLogic uses a logical coordinate system to store the
- * positions of in-flight beans.For example, for a 4-slot machine:
+ * positions of in-flight beans.For example, for a 4-slot machine: (0, 0) (1, 0)
  *                      (0, 0)
  *               (0, 1)        (1, 1)
  *        (0, 2)        (1, 2)        (2, 2)
- *  (0, 3)       (1, 3)        (2, 3)       (3, 3)
+ *  (0,3)         (1,3)         (2,3)        (3,3)
  * [Slot0]       [Slot1]       [Slot2]      [Slot3]
  */
 
 public class BeanCounterLogic {
-	// TODO: Add member methods and variables as needed
 
+	int slotCount;
+	
+	int[] slotBeanCount;
+	
+	Bean[] row;
+
+	Bean[] beans;
+	
+	LinkedList<Bean> beansInSlots;
+	
+	int nextBean;
+
+	
 	// No bean in that particular Y coordinate
 	public static final int NO_BEAN_IN_YPOS = -1;
 
@@ -40,8 +53,11 @@ public class BeanCounterLogic {
 	 * 
 	 * @param slotCount the number of slots in the machine
 	 */
-	BeanCounterLogic(int slotCount) {
-		// TODO: Implement
+	BeanCounterLogic(int inSlotCount) {
+		slotCount = inSlotCount;
+		row = new Bean[slotCount];
+		slotBeanCount = new int[slotCount];
+		beansInSlots = new LinkedList<Bean>();
 	}
 
 	/**
@@ -50,8 +66,7 @@ public class BeanCounterLogic {
 	 * @return number of beans remaining
 	 */
 	public int getRemainingBeanCount() {
-		// TODO: Implement
-		return 0;
+		return beans.length - nextBean;
 	}
 
 	/**
@@ -61,8 +76,11 @@ public class BeanCounterLogic {
 	 * @return the x-coordinate of the in-flight bean
 	 */
 	public int getInFlightBeanXPos(int yPos) {
-		// TODO: Implement
-		return NO_BEAN_IN_YPOS;
+		if (row[yPos] == null) {
+			return NO_BEAN_IN_YPOS;
+		} else {
+			return row[yPos].getXPos();
+		}
 	}
 
 	/**
@@ -72,8 +90,7 @@ public class BeanCounterLogic {
 	 * @return number of beans in slot
 	 */
 	public int getSlotBeanCount(int i) {
-		// TODO: Implement
-		return 0;
+		return slotBeanCount[i];
 	}
 
 	/**
@@ -82,8 +99,17 @@ public class BeanCounterLogic {
 	 * @return average of all slot bean counts
 	 */
 	public double getAverageSlotBeanCount() {
-		// TODO: Implement
-		return 0;
+		double total = 0;
+		double beanCount = 0;
+		for (int i = 0; i < slotCount; i++) {
+			total += slotBeanCount[i] * i;
+			beanCount += slotBeanCount[i];
+		}
+		if (beanCount == 0) {
+			return 0;
+		}
+		return total / beanCount;
+
 	}
 
 	/**
@@ -91,7 +117,12 @@ public class BeanCounterLogic {
 	 * upper half.
 	 */
 	public void upperHalf() {
-		// TODO: Implement
+		int count = beansInSlots.size() / 2;
+		Collections.sort(beansInSlots); //ascending
+		for (int i = 0; i <= count; i++) {
+			slotBeanCount[beansInSlots.remove().getXPos()]--;
+		}
+		
 	}
 
 	/**
@@ -99,15 +130,30 @@ public class BeanCounterLogic {
 	 * lower half.
 	 */
 	public void lowerHalf() {
-		// TODO: Implement
+		int count = beansInSlots.size() / 2;
+		Collections.sort(beansInSlots); //ascending
+		for (int i = 0; i < count; i++) {
+			slotBeanCount[beansInSlots.removeLast().getXPos()]--;
+		}
 	}
 
 	/**
 	 * A hard reset. Initializes the machine with the passed beans. The machine
 	 * starts with one bean at the top.
 	 */
-	public void reset(Bean[] beans) {
-		// TODO: Implement
+	public void reset(Bean[] inBeans) {
+		beans = inBeans;
+		for (Bean b: beans) {
+			b.resetSkill();
+		}
+		if (beans.length > 0) {
+			row[0] = beans[0];
+			row[0].setXPos(0);
+			nextBean = 1;
+		} else {
+			nextBean = 0;
+		}
+		slotBeanCount = new int[slotCount];
 	}
 
 	/**
@@ -116,7 +162,28 @@ public class BeanCounterLogic {
 	 * beginning, the machine starts with one bean at the top.
 	 */
 	public void repeat() {
-		// TODO: Implement
+		
+		for (Bean b: row) {
+			if (b != null) {
+				beansInSlots.add(b);
+			}
+		}
+		for (int i = nextBean; i < beans.length; i++) {
+			beansInSlots.add(beans[i]);
+		}
+		for (Bean b: beansInSlots) {
+			b.resetSkill();
+			b.setXPos(-1);
+		}
+		
+		beans = beansInSlots.toArray(new Bean[beansInSlots.size()]);
+		beansInSlots = new LinkedList<Bean>();
+		row = new Bean[slotCount];
+		slotBeanCount = new int[slotCount];
+		row[0] = beans[0];
+		row[0].setXPos(0);
+		nextBean = 1;
+		
 	}
 
 	/**
@@ -128,8 +195,28 @@ public class BeanCounterLogic {
 	 *         means the machine is finished.
 	 */
 	public boolean advanceStep() {
-		// TODO: Implement
-		return false;
+		boolean change = false;
+		
+		if (row[slotCount - 1] != null) {
+			change = true;
+			slotBeanCount[row[slotCount - 1].getXPos()]++;
+			beansInSlots.add(row[slotCount - 1]);
+			row[slotCount - 1] = null;
+		}
+		for (int i = slotCount - 1; i >= 0; i--) {
+			if (row[i] != null) {
+				change = true;
+				row[i + 1] = row[i];
+				row[i + 1].move();
+				row[i] = null;
+			}
+		}
+		if (nextBean != beans.length) {
+			row[0] = beans[nextBean++];
+			row[0].setXPos(0);
+		}
+		
+		return change;
 	}
 
 	public static void showUsage() {
@@ -155,7 +242,8 @@ public class BeanCounterLogic {
 		if (args.length == 1 && args[0].equals("test")) {
 			// TODO: Verify the model checking passes for beanCount values 0-3 and slotCount
 			// values 1-5 using the JPF Verify API.
-			
+			beanCount = Verify.getInt(0, 3);
+			slotCount = Verify.getInt(1,5);
 			
 			// Create the internal logic
 			BeanCounterLogic logic = new BeanCounterLogic(slotCount);

@@ -18,8 +18,14 @@ import java.util.Random;
  * skill level.
  */
 
-public class Bean {
+public class Bean implements Comparable<Bean> {
 	// TODO: Add member methods and variables as needed 
+	
+	boolean isLuck;
+	Random rand;
+	int skill;
+	int rightCount;
+	int xPos;
 	
 	private static final double SKILL_AVERAGE = 4.5;	// MainPanel.SLOT_COUNT * 0.5;
 	private static final double SKILL_STDEV = 1.5;		// Math.sqrt(SLOT_COUNT * 0.5 * (1 - 0.5));
@@ -32,5 +38,46 @@ public class Bean {
 	 */
 	Bean(boolean isLuck, Random rand) {
 		// TODO: Implement
+		this.isLuck = isLuck;
+		this.rand = rand;
+		//slotNumber = -1;
+		if (!isLuck) {
+			skill = (int) Math.round(rand.nextGaussian() * SKILL_STDEV + SKILL_AVERAGE);
+		}
+		rightCount = 0;
+		xPos = -1;
 	}
+	
+	/**
+	 * Returns if the bean moves to the right
+	 */
+	public void move() {
+		if (isLuck) {
+			if (rand.nextBoolean()) {
+				xPos++;
+			}
+		} else {
+			if (rightCount < skill) {
+				rightCount++;
+				xPos++;
+			}
+		}
+	}
+
+	public int getXPos() {
+		return xPos;
+	}
+	
+	public void setXPos(int xPos) {
+		this.xPos = xPos;
+	}
+	
+	public void resetSkill() {
+		rightCount = 0;
+	}
+	
+	public int compareTo(Bean other) {
+		return xPos - other.getXPos();
+	}
+	
 }
